@@ -5,29 +5,63 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
+    public float speed;
 
-    // Update is called once per frame
     void Update()
     {
-        float speed = Input.GetAxisRaw("Horizontal");
-        if (Mathf.Abs(speed) > 0)
+        float horizontalSpeed = Input.GetAxisRaw("Horizontal");
+
+        float jumpSpeed = Input.GetAxisRaw("Jump");
+        // Input.GetKeyDown(KeyCode.Space);
+
+        PlayMovementAnimation(horizontalSpeed, jumpSpeed);
+    }
+
+    private void PlayMovementAnimation(float horizontalSpeed, float jumpSpeed)
+    {
+        if (Mathf.Abs(horizontalSpeed) > 0)
         {
             animator.SetBool("isRunning", true);
-        } else
+        }
+        else
         {
             animator.SetBool("isRunning", false);
         }
 
         Vector3 scale = transform.localScale;
 
-        if (speed < 0)
+        if (horizontalSpeed < 0)
         {
             scale.x = -1 * Mathf.Abs(scale.x);
-        } else if (speed > 0)
+        }
+        else if (horizontalSpeed > 0)
         {
             scale.x = Mathf.Abs(scale.x);
         }
 
         transform.localScale = scale;
+
+        if (jumpSpeed > 0)
+        {
+            animator.SetBool("isJump", true);
+        }
+        else
+        {
+            animator.SetBool("isJump", false);
+        }
+
+        if (Input.GetKey(KeyCode.LeftControl))
+        {
+            animator.SetBool("isCrouch", true);
+        }
+        else
+        {
+            animator.SetBool("isCrouch", false);
+        }
+    }
+
+    private void MoveCharacter(float horizontalSpeed)
+    {
+
     }
 }
