@@ -5,19 +5,24 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     public Animator animator;
-    public float speed;
+
+    private void Awake()
+    {
+        animator = GetComponent<Animator>();
+    }
 
     void Update()
     {
         float horizontalSpeed = Input.GetAxisRaw("Horizontal");
-
         float jumpSpeed = Input.GetAxisRaw("Jump");
         // Input.GetKeyDown(KeyCode.Space);
 
-        PlayMovementAnimation(horizontalSpeed, jumpSpeed);
+        PlayRunAnimation(horizontalSpeed);
+        PlayJumpAnimation(jumpSpeed);
+        PlayCouchAnimation();
     }
 
-    private void PlayMovementAnimation(float horizontalSpeed, float jumpSpeed)
+    private void PlayRunAnimation(float horizontalSpeed)
     {
         if (Mathf.Abs(horizontalSpeed) > 0)
         {
@@ -40,7 +45,10 @@ public class PlayerController : MonoBehaviour
         }
 
         transform.localScale = scale;
+    }
 
+    private void PlayJumpAnimation(float jumpSpeed)
+    {
         if (jumpSpeed > 0)
         {
             animator.SetBool("isJump", true);
@@ -49,8 +57,11 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("isJump", false);
         }
+    }
 
-        if (Input.GetKey(KeyCode.LeftControl))
+    private void PlayCouchAnimation()
+    {
+        if (Input.GetKeyDown(KeyCode.LeftControl))
         {
             animator.SetBool("isCrouch", true);
         }
@@ -58,10 +69,5 @@ public class PlayerController : MonoBehaviour
         {
             animator.SetBool("isCrouch", false);
         }
-    }
-
-    private void MoveCharacter(float horizontalSpeed)
-    {
-
     }
 }
