@@ -4,11 +4,16 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
-    public Animator animator;
+    private Animator animator;
+    private Rigidbody2D rb2d;
+
+    public float speed;
+    public float jump;
 
     private void Awake()
     {
         animator = GetComponent<Animator>();
+        rb2d = gameObject.GetComponent<Rigidbody2D>();
     }
 
     void Update()
@@ -20,6 +25,8 @@ public class PlayerController : MonoBehaviour
         PlayRunAnimation(horizontalSpeed);
         PlayJumpAnimation(jumpSpeed);
         PlayCouchAnimation();
+
+        MoveCharacter(horizontalSpeed, jumpSpeed);
     }
 
     private void PlayRunAnimation(float horizontalSpeed)
@@ -68,6 +75,24 @@ public class PlayerController : MonoBehaviour
         else
         {
             animator.SetBool("isCrouch", false);
+        }
+    }
+
+    private void MoveCharacter(float horizontalSpeed, float verticalSpeed)
+    {
+        // move character horizontally
+        if (horizontalSpeed != 0)
+        {
+            Vector3 position = transform.position;
+            float direction = horizontalSpeed / Mathf.Abs(horizontalSpeed);
+            position.x += direction * speed * Time.deltaTime;
+            transform.position = position;
+        }
+
+        // move character vertically
+        if (verticalSpeed > 0)
+        {
+            rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
         }
     }
 }
