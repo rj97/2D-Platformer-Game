@@ -78,7 +78,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    private void MoveCharacter(float horizontalSpeed, float verticalSpeed)
+    private void MoveCharacter(float horizontalSpeed, float jumpSpeed)
     {
         // move character horizontally
         if (horizontalSpeed != 0)
@@ -90,7 +90,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // move character vertically
-        if (verticalSpeed > 0)
+        if (jumpSpeed > 0)
         {
             rb2d.AddForce(new Vector2(0f, jump), ForceMode2D.Force);
         }
