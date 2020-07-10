@@ -1,9 +1,11 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public ScoreController scoreController;
     private Animator animator;
     private Rigidbody2D rb2d;
 
@@ -27,6 +29,12 @@ public class PlayerController : MonoBehaviour
         PlayCouchAnimation();
 
         MoveCharacter(horizontalSpeed, jumpSpeed);
+    }
+
+    public void PickUpKey()
+    {
+        Debug.Log("Player picked up the key!");
+        scoreController.IncreaseScore(15);
     }
 
     private void PlayRunAnimation(float horizontalSpeed)
