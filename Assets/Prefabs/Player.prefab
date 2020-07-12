@@ -244,5 +244,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a3f26dff47a445478097687b99e2784, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  scoreController: {fileID: 0}
   speed: 4
   jump: 150
