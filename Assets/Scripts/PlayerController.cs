@@ -18,6 +18,11 @@ public class PlayerController : MonoBehaviour
         rb2d = gameObject.GetComponent<Rigidbody2D>();
     }
 
+    public void KillPlayer()
+    {
+        Debug.Log("Player killed by the enemy!");
+    }
+
     void Update()
     {
         float horizontalSpeed = Input.GetAxisRaw("Horizontal");
