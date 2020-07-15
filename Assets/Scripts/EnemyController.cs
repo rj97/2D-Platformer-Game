@@ -6,7 +6,6 @@ public class EnemyController : MonoBehaviour
 {
     public float speed;
     int enemyDirection = 1;
-    bool isMoving = true;
     Animator animator;
 
     private void Awake()
@@ -25,9 +24,6 @@ public class EnemyController : MonoBehaviour
         
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
-            // stop movement of enemy
-            isMoving = false;
-
             PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
             Transform playerTransform = playerController.gameObject.transform;
 
