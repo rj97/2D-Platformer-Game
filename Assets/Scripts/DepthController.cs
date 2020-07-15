@@ -1,7 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
 public class DepthController : MonoBehaviour
 {
@@ -9,9 +8,9 @@ public class DepthController : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
+            PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
             Debug.Log("Level needs to be restarted!");
-
-            SceneManager.LoadScene(0);
+            playerController.ReloadLevel();
         }
     }
 }

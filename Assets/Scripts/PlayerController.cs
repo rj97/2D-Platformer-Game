@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviour
 {
@@ -18,8 +19,32 @@ public class PlayerController : MonoBehaviour
         rb2d = gameObject.GetComponent<Rigidbody2D>();
     }
 
+    public void KillPlayer()
+    {
+        Debug.Log("Player killed by the enemy!");
+        animator.SetBool("isKilled", true);
+        animator.SetBool("isRunning", false);
+        animator.SetBool("isCrouch", false);
+        animator.SetBool("isJump", false);
+    }
+
+    public void ReloadLevel()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void LoadNextLevel()
+    {
+        // yet to be implemented
+        Debug.Log("yet to be implemented");
+    }
+
     void Update()
     {
+        if (animator.GetBool("isKilled"))
+        {
+            return;
+        }
         float horizontalSpeed = Input.GetAxisRaw("Horizontal");
         float jumpSpeed = Input.GetAxisRaw("Jump");
         // Input.GetKeyDown(KeyCode.Space);

@@ -8,7 +8,9 @@ public class LevelOverController : MonoBehaviour
     {
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
+            PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
             Debug.Log("Level completed!");
+            playerController.LoadNextLevel();
         }
     }
 }
