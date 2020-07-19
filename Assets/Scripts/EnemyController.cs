@@ -6,7 +6,6 @@ public class EnemyController : MonoBehaviour
 {
     public float speed;
     int enemyDirection = 1;
-    bool isMoving = true;
     Animator animator;
 
     private void Awake()
@@ -25,9 +24,6 @@ public class EnemyController : MonoBehaviour
         
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
-            // stop movement of enemy
-            isMoving = false;
-
             PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
             Transform playerTransform = playerController.gameObject.transform;
 
@@ -44,9 +40,18 @@ public class EnemyController : MonoBehaviour
             }
 
             // attack the player
-            playerController.KillPlayer();
-            animator.SetBool("isAttacking", true);
+            attack(true);
+            bool isGameOver = playerController.EnemyKilledPlayer();
+            if (!isGameOver)
+            {
+                attack(false);
+            }
         }
+    }
+
+    public void attack(bool mode)
+    {
+        animator.SetBool("isAttacking", mode);
     }
 
     private void Update()

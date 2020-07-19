@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class DepthController : MonoBehaviour
 {
+    public GameOverController gameOverController;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.GetComponent<PlayerController>() != null)
         {
-            PlayerController playerController = collision.gameObject.GetComponent<PlayerController>();
             Debug.Log("Level needs to be restarted!");
-            playerController.ReloadLevel();
+            gameOverController.PlayerKilled();
         }
     }
 }

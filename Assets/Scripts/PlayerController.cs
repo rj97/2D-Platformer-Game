@@ -7,6 +7,8 @@ using UnityEngine.SceneManagement;
 public class PlayerController : MonoBehaviour
 {
     public ScoreController scoreController;
+    public HealthController healthController;
+    public GameOverController gameOverController;
     private Animator animator;
     private Rigidbody2D rb2d;
 
@@ -19,18 +21,26 @@ public class PlayerController : MonoBehaviour
         rb2d = gameObject.GetComponent<Rigidbody2D>();
     }
 
-    public void KillPlayer()
+    public bool EnemyKilledPlayer()
     {
-        Debug.Log("Player killed by the enemy!");
-        animator.SetBool("isKilled", true);
-        animator.SetBool("isRunning", false);
-        animator.SetBool("isCrouch", false);
-        animator.SetBool("isJump", false);
+        bool isGameOver = healthController.decreaseTries();
+
+        if (isGameOver)
+        {
+            Debug.Log("Player killed by the enemy!");
+            animator.SetBool("isKilled", true);
+            animator.SetBool("isRunning", false);
+            animator.SetBool("isCrouch", false);
+            animator.SetBool("isJump", false);
+        }
+
+        return isGameOver;
     }
 
-    public void ReloadLevel()
+    public void KillPlayerAnimationOver()
     {
-        SceneManager.LoadScene(0);
+        gameOverController.PlayerKilled();
+        enabled = false;
     }
 
     public void LoadNextLevel()
