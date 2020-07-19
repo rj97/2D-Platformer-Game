@@ -40,9 +40,18 @@ public class EnemyController : MonoBehaviour
             }
 
             // attack the player
-            playerController.KillPlayer();
-            animator.SetBool("isAttacking", true);
+            attack(true);
+            bool isGameOver = playerController.EnemyKilledPlayer();
+            if (!isGameOver)
+            {
+                attack(false);
+            }
         }
+    }
+
+    public void attack(bool mode)
+    {
+        animator.SetBool("isAttacking", mode);
     }
 
     private void Update()
