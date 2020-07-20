@@ -20,6 +20,7 @@ public class GameOverController : MonoBehaviour
 
     public void ReloadLevel()
     {
-        SceneManager.LoadScene(1);
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.buildIndex);
     }
 }
